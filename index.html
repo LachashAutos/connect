@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Connecting...</title>
+  <title>Open WhatsApp</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -9,11 +9,11 @@
 
 <div style="margin-top:35vh;">
   <h2>Lachash Autos</h2>
-  <p>Connecting to WhatsApp...</p>
+  <p>Tap below to continue</p>
 
-  <!-- Fallback button -->
-  <a id="fallbackBtn" href="#" 
-     style="display:none; padding:14px 24px; background:#25D366; color:#fff; border-radius:8px; text-decoration:none;">
+  <!-- Main Button -->
+  <a id="openBtn" href="#" 
+     style="padding:14px 24px; background:#25D366; color:#fff; border-radius:8px; text-decoration:none; display:inline-block;">
      Open WhatsApp
   </a>
 </div>
@@ -21,60 +21,21 @@
 <script>
 var phone = "2347010725505";
 
-// ✅ EXACT MESSAGE FORMAT (DO NOT CHANGE STRUCTURE)
+// EXACT MESSAGE FORMAT
 var message = "Hi LACHASH AUTOS\n<smartcard scan>\nSave as:\n……………..";
 
-// Encode message properly
+// Encode
 var encodedMsg = encodeURIComponent(message);
 
-// Links
+// App link ONLY (no web fallback)
 var appLink = "whatsapp://send?phone=" + phone + "&text=" + encodedMsg;
-var webLink = "https://wa.me/" + phone + "?text=" + encodedMsg;
 
-// Device detection
-var ua = navigator.userAgent.toLowerCase();
-var isAndroid = ua.indexOf("android") > -1;
-var isIOS = /iphone|ipad|ipod/.test(ua);
+// Assign to button
+document.getElementById("openBtn").href = appLink;
 
-// Tracking (counts scans)
+// Tracking (optional)
 var img = new Image();
 img.src = "https://api.countapi.xyz/hit/lachashautos/whatsapp";
-
-// Show fallback button if needed
-function showButton() {
-  var btn = document.getElementById("fallbackBtn");
-  btn.href = webLink;
-  btn.style.display = "inline-block";
-}
-
-// --- REDIRECT LOGIC ---
-
-// Try opening WhatsApp app first
-window.location = appLink;
-
-// Android → faster fallback
-if (isAndroid) {
-  setTimeout(function() {
-    window.location = webLink;
-    showButton();
-  }, 1200);
-}
-
-// iPhone → slightly delayed fallback
-else if (isIOS) {
-  setTimeout(function() {
-    window.location = webLink;
-    showButton();
-  }, 1800);
-}
-
-// Other devices
-else {
-  setTimeout(function() {
-    window.location = webLink;
-    showButton();
-  }, 1500);
-}
 </script>
 
 </body>
